@@ -1,0 +1,85 @@
+---
+title: "Chickwts"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1.) Find the mean weight and the median weight of all of the chicks.
+
+```{r}
+data("chickwts")
+
+mean_weight <- mean(chickwts$weight)
+median_weight <- median(chickwts$weight)
+
+data("chickwts")
+
+mean_weight <- mean(chickwts$weight)
+median_weight <- median(chickwts$weight)
+
+print(paste("Mean weight of the chicks:", mean_weight))
+print(paste("Median weight of the chicks:", median_weight))
+
+```
+
+# 2.) Which feed was the heaviest chick given?
+```{r}
+data(chickwts)
+
+max_weight <- max(chickwts$weight)
+heaviest_feed <- chickwts$feed[chickwts$weight == max_weight]
+
+print(paste("Heaviest chick weight =", max_weight, "grams & was given", heaviest_feed, "feed."))
+```
+
+
+# 3.) Which feed was the lightest chick given?
+```{r}
+data(chickwts)
+
+min_weight <- min(chickwts$weight)
+lightest_feed <- chickwts$feed[chickwts$weight == min_weight]
+
+print(paste("Lightest chick weight =", min_weight, "grams & was given", lightest_feed, "feed."))
+
+```
+
+
+# 4.) Create a diagram that shows box plots side-by-side to compare the chick weights by feed type.
+```{r}
+library(ggplot2)
+data(chickwts)
+
+ggplot(chickwts, aes(x = feed, y = weight, fill = feed)) +
+  geom_boxplot() +
+  labs(title = "Chick Weights by Feed Type", x = "Feed Type", y = "Weight in grams") +
+  theme_minimal() +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5))  
+
+```
+
+# 5.) According to these box plots, which two feed types resulted in the heaviest chicks.
+
+```{r}
+library(ggplot2)
+data(chickwts)
+
+ggplot(chickwts, aes(x = reorder(feed, -weight, median), y = weight, fill = feed)) +
+  geom_boxplot() +
+  labs(title = "Chick Weights by Feed Type", x = "Feed Type", y = "Weight in grams") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+```
+
+**So the heaviest chicks were fed Casein (and the lightest horsebean).**
+
