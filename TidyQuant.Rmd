@@ -1,0 +1,60 @@
+---
+title: "TidyQuant"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+library(tidyquant)
+library(ggplot2)
+
+Disney <- tq_get(x="DIS")
+
+ggplot(Disney, aes(x=date, y=close, color=symbol)) + 
+  geom_line() +
+  labs(title = "Disney Stock",
+       x ="Date", y ="Closing Value")
+
+disney2024 <- tq_get(x="DIS", get="stock.prices", from="2024-01-01", to="2024-12-31")
+
+ggplot(disney2024, aes(x=date, y=close, color=symbol)) + 
+  geom_line() +
+  labs(title = "Disney Stock (2024)",
+       x ="Date", y ="Closing Value")
+
+
+```
+```{r}
+library(tidyquant)
+library(ggplot2)
+library(dplyr)
+
+tech_stocks <- tq_get(c("AMZN","AAPL","GOOG","IBM","META"), get="stock.prices")
+tech_stocks <- tech_stocks %>% filter(!is.na(close))
+
+str(tech_stocks)
+
+ggplot(tech_stocks, aes(x = date, y = close, color = symbol)) + 
+  geom_line() +
+  labs(title = "Tech Stocks",
+       x = "Date", y = "Closing Value")
+
+```
+
+```{r}
+
+df = filter(tech_stocks, symbol=="AAPL" | symbol=="GOOG")
+
+ggplot(df, aes(x = date, y = close, color = symbol)) + 
+  geom_line() +
+  labs(title = "Tech Stocks",
+       x = "Date", y = "Closing Value")
+
+```
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
