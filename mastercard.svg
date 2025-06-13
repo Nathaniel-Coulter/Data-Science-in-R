@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 20">
+  <circle cx="25" cy="10" r="7" fill="#EB001B"></circle>
+  <circle cx="35" cy="10" r="7" fill="#F79E1B"></circle>
+  <text x="48" y="15" font-family="Arial, sans-serif" font-size="10" fill="#000">Mastercard</text>
+</svg>
