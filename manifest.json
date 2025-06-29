@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "TrustHaven Fingerprint Spoofer",
+  "name": "Anti-Phish",
   "version": "1.0",
-  "description": "Spoofs browser fingerprint for anti-fraud resistance",
+  "description": "Warns users if an email or website is attempting to misrepresent a legitimate entity.",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
