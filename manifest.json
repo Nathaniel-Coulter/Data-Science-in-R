@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "TrustHaven Fingerprint Spoofer",
+  "version": "1.0",
+  "description": "Spoofs browser fingerprint for anti-fraud resistance",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["spoof.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": ["scripting"]
+}
