@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Anti-Phish",
+  "version": "1.0",
+  "description": "Warns users if an email or website is attempting to misrepresent a legitimate entity.",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["spoof.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": ["scripting"]
+}
