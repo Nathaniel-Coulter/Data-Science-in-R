@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Insurance Premium Estimator</title>
+</head>
+<body>
+    <h1>Insurance Premium Estimator</h1>
+    <form method="POST">
+        <label>Age:</label><br>
+        <input type="number" name="age" required><br><br>
+
+        <label>Sex:</label><br>
+        <select name="sex" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select><br><br>
+
+        <label>Weight (lbs):</label><br>
+        <input type="number" name="weight" step="0.1" required><br><br>
+
+        <label>Height (inches):</label><br>
+        <input type="number" name="height" step="0.1" required><br><br>
+
+        <label>Do you have children?</label><br>
+        <select name="children" required>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select><br><br>
+
+        <label>Smoker:</label><br>
+        <select name="smoker" required>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select><br><br>
+
+        <label>Region:</label><br>
+        <select name="region" required>
+            <option value="northeast">Northeast</option>
+            <option value="northwest">Northwest</option>
+            <option value="southeast">Southeast</option>
+            <option value="southwest">Southwest</option>
+        </select><br><br>
+
+        <input type="submit" value="Estimate My Charge">
+    </form>
+</body>
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Estimated Charge</title>
+</head>
+<body>
+    <h1>Your Estimated Insurance Charge</h1>
+    <p>{{ estimated_charge }}</p>
+    <br>
+    <a href="/">Try Another</a>
+</body>
+</html>

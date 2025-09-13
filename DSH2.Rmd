@@ -1,0 +1,170 @@
+---
+title: 'Homework #2'
+author: "Nathaniel Coulter"
+date: "2025-02-25"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data Frame of Casein and Horsebean
+```{r}
+library(tidyquant)
+library(ggplot2)
+library(dplyr)
+
+data("chickwts")
+
+filtered_chicks <- chickwts %>% 
+  filter(feed %in% c("casein"))
+
+head(filtered_chicks)
+
+```
+
+## Histogram of chick weights in previous Data Frame
+
+```{r}
+library(tidyquant)
+library(ggplot2)
+library(dplyr)
+
+data("chickwts")
+
+filtered_chicks <- chickwts %>% 
+  filter(feed %in% c("casein"))
+
+head(filtered_chicks)
+# From Above 
+
+#Now adding a plot: 
+
+ggplot(filtered_chicks, aes(x = weight)) +
+  geom_histogram(binwidth = 50, fill = "steelblue", color = "black") +
+  labs(
+    title = "Distribution of Chick Weights (Casein)",
+    x = "Chick Weight (in grams)",
+    y = "Frequency"
+  ) +
+  theme_minimal()+
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+```
+
+## Overlaying Histograms 
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+data("chickwts")
+
+filtered_chicks <- chickwts %>%
+  filter(feed %in% c("casein", "horsebean")) #Using both this time
+
+ggplot(filtered_chicks, aes(x = weight, fill = feed, color = feed)) +
+  geom_histogram(binwidth = 50, alpha = 0.5, position = "identity") +
+  labs(
+    title = "Chick Weight Distribution (Casein & Horsebean)",
+    x = "Chick Weight (in grams)",
+    y = "Frequency",
+    fill = "Feed Type",
+    color = "Feed Type"
+  ) +
+  theme_minimal()+
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+```
+
+## Question 2: (Part A - Data Frame)
+
+```{r}
+# In R Studio on my Data frame it's only showing me AAL. 
+#I think it's just showing me based on the dates and AAL is first alphabetically. 
+#For that reason I tried having R fetch and bind each ticker independently. 
+#But it's still showing me the same... 
+
+# So I used the "unique(airline_stocks$symbol)" to verify that each ticker...
+#...symbol was being retrieved from TidyQuant regardless of what it looks like in R Studio.  
+
+library(tidyquant)
+library(dplyr)
+library(ggplot2)
+
+airline_symbols <- c("AAL", "DAL", "LUV", "UAL")
+
+airline_stocks <- bind_rows(
+  tq_get("AAL", get = "stock.prices", from = "2020-01-01", to = "2025-01-31"),
+  tq_get("DAL", get = "stock.prices", from = "2020-01-01", to = "2025-01-31"),
+  tq_get("LUV", get = "stock.prices", from = "2020-01-01", to = "2025-01-31"),
+  tq_get("UAL", get = "stock.prices", from = "2020-01-01", to = "2025-01-31")
+)
+
+head(airline_stocks)
+
+unique(airline_stocks$symbol)
+
+```
+
+## Question 2: (Part B - Linegraph)
+
+```{r}
+library(tidyquant)
+library(dplyr)
+library(ggplot2)
+
+airline_symbols <- c("AAL", "DAL", "LUV", "UAL")
+
+airline_stocks <- tq_get(airline_symbols, get = "stock.prices", from = "2020-01-01", to = "2025-01-31")
+
+ggplot(airline_stocks, aes(x = date, y = close, color = symbol)) +
+  geom_line(size = 1) +
+  labs(
+    title = "Closing Prices of Major Airlines from 2020-2025",
+    x = "Date(s)",
+    y = "Closing Price (in $)",
+    color = "Airline"
+  ) +
+  theme_minimal()+
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+```
+
+## Question 2: (Part C - Graph only DAL from Data Frame)
+
+```{r}
+library(tidyquant)
+library(ggplot2)
+library(dplyr)
+
+delta_stocks <- airline_stocks %>%
+  filter(symbol == "DAL")
+
+ggplot(delta_stocks, aes(x = date, y = close)) +
+  geom_line(color = "cyan", size = 1) + # oooh I like this color :) 
+  labs(
+    title = "DAL Closing Prices: 2020-2025",
+    x = "Date",
+    y = "Closing Price ($)"
+  ) +
+  theme_minimal()+
+  theme(
+    legend.position = "none",
+    plot.title = element_text(hjust = 0.5)
+  )
+
+```
+
